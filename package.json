@@ -12,7 +12,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
-    "mongoose": "^5.9.4",
+    "mongoose": "^5.9.9",
     "nodemon": "^2.0.2",
     "gtfs": "^1.9.3"
   }
