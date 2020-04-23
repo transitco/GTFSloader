@@ -5,15 +5,20 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "lint": "npx eslint ./",
+    "dev": "nodemon index.js",
+    "prod": "node index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "mongoose": "^5.9.10",
     "nodemon": "^2.0.3",
-    "gtfs": "^1.10.0"
+    "gtfs": "^1.10.0",
+    "zip-local": "^0.3.4"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0"
   }
 }
