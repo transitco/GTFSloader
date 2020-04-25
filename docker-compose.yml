@@ -1,0 +1,39 @@
+version: "2"
+
+services:
+  rtlgtfsloader:
+    container_name: rtlgtfsloader
+    build: .
+    command: npm run dev
+    restart: always
+    volumes:
+      - ./gtfs/rtl_config.json:/usr/src/app/gtfsloader/gtfs/config.json
+    ports:
+      - "3000:3000"
+    environment:
+    - AGENCY=rtl
+    links:
+      - mongo
+
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+      - data:/data/db
+    ports:
+      - "27017:27017"
+
+  admin-mongo:
+    container_name: adminMongo
+    image: 0x59/admin-mongo:latest
+    ports:
+      - "8082:8082"
+    environment:
+      - PORT=8082
+      - CONN_NAME=mongo
+      - DB_HOST=mongo
+      - DB_PORT=27017
+    links:
+      - mongo
+volumes: 
+  data:

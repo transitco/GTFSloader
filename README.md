@@ -1,9 +1,25 @@
 
 # GTFSloader
 
-Tool to load GTFS files into a MongoDB database
+Tool to upload and download GTFS files with a MongoDB database
 
-# Contribute
+## Endpoints
+
+* Import GTFS from a zipfile to the database
+
+```bash
+curl --request POST \
+  --url http://localhost:3000/import_gtfs
+```
+
+* Download GTFS from the database as a zipfile
+
+```bash
+* curl --request GET \
+  --url http://localhost:3000/export_gtfs
+```
+
+## Contribute
 
 You are welcome to contribute either directly via GitHub Pull Request or via Gerrit:
 <https://review.gerrithub.io/q/project:transitco/GTFSloader+status:open>
