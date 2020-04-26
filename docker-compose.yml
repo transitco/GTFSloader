@@ -8,6 +8,8 @@ services:
     restart: always
     volumes:
       - ./gtfs/rtl_config.json:/usr/src/app/gtfsloader/gtfs/config.json
+      - .:/usr/src/app/gtfsloader
+      - /usr/src/app/node_modules
     ports:
       - "3000:3000"
     environment:

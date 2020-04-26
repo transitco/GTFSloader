@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const gtfs = require('gtfs');
-const config = require('./gtfs/config.json');
+const config = require('../gtfs/config.json');
 const zipper = require('zip-local');
 
 mongoose.connect('mongodb://mongo:27017/gtfs', {useNewUrlParser: true, useUnifiedTopology: true});
@@ -20,7 +20,6 @@ app.post('/import_gtfs', (req, res, next) => {
       .then(() => {
         console.log('Import Successful');
         res.send({ message: 'Import Successful' });
-        return mongoose.connection.close();
       })
       .catch((err) => {
         console.error(err);
@@ -38,7 +37,6 @@ app.get('/export_gtfs', (req, res, next) => {
         const agencyfilepath = agencydirectorypath + '/' + agencykey + '_gtfs.zip';
         zipper.sync.zip(agencydirectorypath).compress().save(agencyfilepath);
         res.download(agencyfilepath);
-        return mongoose.connection.close();
       })
       .catch((err) => {
         console.error(err);
