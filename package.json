@@ -16,7 +16,9 @@
     "mongoose": "^5.9.10",
     "nodemon": "^2.0.3",
     "gtfs": "^1.10.0",
-    "zip-local": "^0.3.4"
+    "zip-local": "^0.3.4",
+    "sanitize-filename": "^1.6.3",
+    "bluebird": "^3.7.2"
   },
   "devDependencies": {
     "eslint": "^6.8.0"

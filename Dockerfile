@@ -11,5 +11,6 @@ FROM baseline AS production
 #RUN npm install package-lock.json -- production
 RUN npm install
 COPY ./src/ /usr/src/app/gtfsloader/src/
+RUN mkdir -p /usr/src/app/gtfsloader/gtfs-export/download
 EXPOSE 3000
 CMD ["npm", "run", "prod"]

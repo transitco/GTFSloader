@@ -3,6 +3,8 @@ const express = require('express');
 const gtfs = require('gtfs');
 const config = require('../gtfs/config.json');
 const zipper = require('zip-local');
+const sanitize = require('sanitize-filename');
+const Promise = require('bluebird');
 
 mongoose.connect('mongodb://mongo:27017/gtfs', {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -30,13 +32,30 @@ app.post('/import_gtfs', (req, res, next) => {
 // eslint-disable-next-line no-unused-vars
 app.get('/export_gtfs', (req, res, next) => {
   gtfs.export(config)
-      .then(() => {
+      .then(async () => {
+        console.log("here");
+        const gtfsdatapath = '/usr/src/app/gtfsloader/gtfs-export/';
+
+        //const agencykey0 = process.env.AGENCY;
+        const agencyCount = config.agencies.length;
+        console.log(`Starting GTFS zip creation for ${agencyCount} agency(ies)`);
+        
+        await Promise.mapSeries(config.agencies, agency => {
+          if (!agency.agency_key) {
+            throw new Error('No Agency Key provided.');
+          }
+
+        const agencykey = sanitize(agency.agency_key);
+        const agencydirectorypath = gtfsdatapath + agencykey;
+        const zipfilepath = gtfsdatapath + '/download/' + agencykey + '.zip';
+        zipper.sync.zip(agencydirectorypath).compress().save(zipfilepath);
+        });
+
+        zipper.sync.zip(gtfsdatapath + 'download/').compress().save(gtfsdatapath  + 'download/exported_gtfs.zip');
         console.log('Export Successful');
-        const agencykey = process.env.AGENCY;
-        const agencydirectorypath = '/usr/src/app/gtfsloader/gtfs-export/'+ agencykey +'_gtfs' ;
-        const agencyfilepath = agencydirectorypath + '/' + agencykey + '_gtfs.zip';
-        zipper.sync.zip(agencydirectorypath).compress().save(agencyfilepath);
-        res.download(agencyfilepath);
+        res.download(gtfsdatapath + 'download/exported_gtfs.zip');
+        
+          
       })
       .catch((err) => {
         console.error(err);
