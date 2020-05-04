@@ -42,8 +42,14 @@ app.get('/export_gtfs', (req, res, next) => {
             throw new Error('No Agency Key provided.');
           }
 
-        const agencykey = sanitize(agency.agency_key);
-        zipper.sync.zip(gtfsdatapath + agencykey).compress().save('/usr/src/app/download/' + agencykey + '.zip');
+          const agencykey = sanitize(agency.agency_key);
+          zipper.sync.zip(gtfsdatapath + agencykey).compress().save('/usr/src/app/download/' + agencykey + '.zip');
+
+          const { spawn } = require('child_process');
+          const pyProg = spawn('feedvalidator.py', ['--output=CONSOLE', '/usr/src/app/download/' + agencykey + '.zip']);
+          pyProg.stdout.on('data', function(data) {
+            console.log(data.toString());
+          });
         });
 
         zipper.sync.zip('/usr/src/app/download/').compress().save('/usr/src/app/download/exported_gtfs.zip');
