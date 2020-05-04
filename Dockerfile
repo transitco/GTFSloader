@@ -1,4 +1,14 @@
-FROM node:latest AS baseline
+FROM node:14.1.0-buster-slim AS baseline
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python2.7 \
+    python-pip \
+    python-setuptools \
+    && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+RUN pip install wheel
+RUN pip install transitfeed
 WORKDIR /usr/src/app/gtfsloader
 COPY ./package.json /usr/src/app/gtfsloader
 
