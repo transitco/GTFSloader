@@ -61,6 +61,43 @@ app.get('/export_gtfs', (req, res, next) => {
       });
 });
 
+// eslint-disable-next-line no-unused-vars
+app.get('/validate_gtfs', (req, res, next) => {
+    const gtfsdatapath = '/usr/src/app/gtfsloader/gtfs-export/';
+    const agencyCount = config.agencies.length;
+
+    console.log(agencyCount);
+
+    if (!req.query.agency) {
+      res.send({ message: 'Export failed: No Agency Key provided'});
+    }
+    else {
+      console.log(`Starting GTFS validation for ${req.query.agency} agency`);
+
+      var gtfsvalidated = false;
+
+      for (const agency of config.agencies) {  
+        console.log(agency.agency_key)
+        if (req.query.agency == agency.agency_key) {
+          const agencykey = sanitize(agency.agency_key);
+          const { spawn } = require('child_process');
+          const pyProg = spawn('feedvalidator.py', ['--output=CONSOLE', gtfsdatapath + agencykey]);
+
+          pyProg.stdout.on('data', function(data) {
+            console.log(JSON.stringify(data.toString()));
+            console.log('Validation Successful');
+            res.sendFile('validation-results.html', {root: '/usr/src/app/gtfsloader/' })
+          });
+          gtfsvalidated = true;
+          break;
+        }
+      }
+      if(!gtfsvalidated){
+        res.send({ message: 'Export failed: GTFS for agency specified not found.'});
+      }
+    }
+});
+
 app.listen(3000, () => {
   console.log('Server running on port 3000');
 });
