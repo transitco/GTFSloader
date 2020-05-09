@@ -22,9 +22,11 @@
     "gtfs": "^1.10.0",
     "zip-local": "^0.3.4",
     "sanitize-filename": "^1.6.3",
-    "bluebird": "^3.7.2"
+    "bluebird": "^3.7.2",
+    "fs": "^0.0.1-security"
   },
   "devDependencies": {
-    "eslint": "^6.8.0"
+    "eslint": "^6.8.0",
+    "eslint-config-google": "^0.14.0"
   }
 }

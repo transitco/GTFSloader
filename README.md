@@ -12,18 +12,25 @@ curl --request POST \
   --url http://localhost:3000/import_gtfs
 ```
 
-* Extract and validate GTFS from the database
+* Extract GTFS from the database as a zipfile on the server
+
+```bash
+curl --request GET \
+  --url http://localhost:3000/export_gtfs
+```
+
+* Validate a GTFS zipfile on the server
 
 ```bash
 curl --request GET \
   --url http://localhost:3000/validate_gtfs?agency=<INSERT_AGENCY_KEY_HERE>
 ```
 
-* Download GTFS from the database as a zipfile
+* Download a GTFS zipfile
 
 ```bash
 curl --request GET \
-  --url http://localhost:3000/export_gtfs
+  --url http://localhost:3000/download_gtfs=<INSERT_AGENCY_KEY_HERE>
 ```
 
 ## Contribute
