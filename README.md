@@ -30,7 +30,7 @@ curl --request GET \
 
 ```bash
 curl --request GET \
-  --url http://localhost:3000/download_gtfs=<INSERT_AGENCY_KEY_HERE>
+  --url http://localhost:3000/download_gtfs?agency=<INSERT_AGENCY_KEY_HERE>
 ```
 
 ## Contribute
