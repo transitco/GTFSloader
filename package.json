@@ -19,7 +19,7 @@
     "express": "^4.17.1",
     "mongoose": "^5.9.25",
     "nodemon": "^2.0.4",
-    "gtfs": "^1.10.2",
+    "gtfs": "^2.0.2",
     "zip-local": "^0.3.4",
     "sanitize-filename": "^1.6.3",
     "bluebird": "^3.7.2",
