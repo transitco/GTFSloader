@@ -1,4 +1,4 @@
-FROM node:14.11.0-buster-slim AS baseline
+FROM node:15.2.1-buster-slim AS baseline
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python2.7 \
     python-pip \
