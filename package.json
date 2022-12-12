@@ -16,7 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mongoose": "^5.11.13",
     "nodemon": "^2.0.7",
     "gtfs": "^1.10.2",
